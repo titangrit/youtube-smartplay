@@ -17,18 +17,17 @@ function observe_function() {
         // Send message to the background when the video starts to play
         video.onplay = function () {
 
-            // this condition is put to stop youtube from firing when tab is opened in new tab without focusing, DOESN'T WORK ON VIMEO !!!
-            if (video.currentTime !== 0) {
-                
-                //console.log("onplay");
+            //if (video.currentTime !== 0) {
 
-                chrome.runtime.sendMessage({
-                    status: "played"
-                });
+            //console.log("onplay");
 
-                play_message_sent = true;
+            chrome.runtime.sendMessage({
+                status: "played"
+            });
 
-            }
+            play_message_sent = true;
+
+            //}
         };
 
 
@@ -41,10 +40,12 @@ function observe_function() {
             });
         };
 
-        //video.currentTime !== 0 video.played.end(0) - video.played.start(0)
 
         // onplay only is not enough for dynamic site like youtube! This is backup incase onplay failed to send the message
         video.ontimeupdate = function () {
+
+            // this condition is put to stop youtube from firing when tab is opened in new tab without focusing, DOESN'T WORK ON VIMEO !!!
+            // && video.currentTime !== 0
 
             if (!play_message_sent && video.currentTime !== 0) {
 
@@ -57,6 +58,13 @@ function observe_function() {
                 play_message_sent = true;
             }
 
+        }
+
+        video.onabort = function () {
+
+            play_message_sent = false;
+
+            //console.log("onabort");
         }
 
         clearInterval(observer);
