@@ -19,7 +19,7 @@ function observe_function() {
 
             if (video.currentTime >= 0.2) {
 
-            console.log("onplay");
+            //console.log("onplay");
 
             chrome.runtime.sendMessage({
                 status: "played"
@@ -33,7 +33,7 @@ function observe_function() {
 
         video.onended = function () {
 
-            console.log("onended");
+            //console.log("onended");
 
             chrome.runtime.sendMessage({
                 status: "ended"
@@ -49,7 +49,7 @@ function observe_function() {
 
             if (!play_message_sent && video.currentTime >= 0.2) {
 
-                console.log("ontimeupdate "+video.currentTime);
+                //console.log("ontimeupdate "+video.currentTime);
 
                 chrome.runtime.sendMessage({
                     status: "played"
@@ -64,16 +64,16 @@ function observe_function() {
 
             play_message_sent = false;
 
-            console.log("onabort");
+            //console.log("onabort");
         }
 
         clearInterval(observer);
-        console.log("hodor: i've got it");
+        //console.log("hodor: i've got it");
 
     } else {
 
         video = document.querySelector("video");
-        console.log("i am groot: still looking for it");
+        //console.log("i am groot: still looking for it");
     }
 }
 

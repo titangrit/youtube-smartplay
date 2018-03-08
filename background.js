@@ -17,7 +17,7 @@ var map = new Map();
 
 function message_function(message, sender, sendResponse) {
 
-    console.log(message.status);
+    //console.log(message.status);
 
     if (message.status === "played") {
 
