@@ -19,13 +19,13 @@ function observe_function() {
 
             if (video.currentTime >= 0.2) {
 
-            //console.log("onplay");
+                //console.log("onplay");
 
-            chrome.runtime.sendMessage({
-                status: "played"
-            });
+                chrome.runtime.sendMessage({
+                    status: "played"
+                });
 
-            play_message_sent = true;
+                play_message_sent = true;
 
             }
         };
@@ -38,6 +38,8 @@ function observe_function() {
             chrome.runtime.sendMessage({
                 status: "ended"
             });
+            
+            play_message_sent = false;
         };
 
 
