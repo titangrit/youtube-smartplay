@@ -34,6 +34,7 @@ function message_function(message, sender, sendResponse) {
 
             playing_tab_id = sender.tab.id;
             playing_tab_window_id = sender.tab.windowId;
+            focused_tab_id = sender.tab.id;
 
             //console.log("played 1 " + playing_tab_window_id);
 
@@ -58,6 +59,7 @@ function message_function(message, sender, sendResponse) {
 
             playing_tab_id = sender.tab.id;
             playing_tab_window_id = sender.tab.windowId;
+            focused_tab_id = sender.tab.id;
 
             //console.log("played 3 " + playing_tab_window_id);
         }
@@ -95,6 +97,7 @@ function activate_function(info) {
 
         playing_tab_id = info.tabId;
         playing_tab_window_id = info.windowId;
+        
         chrome.tabs.sendMessage(playing_tab_id, {
             action: "play"
         });
@@ -102,13 +105,15 @@ function activate_function(info) {
         //console.log("4 playing_tab_id: "+playing_tab_id+" info.tabId :"+info.tabId);
 
     }
+    
+    focused_tab_id = info.tabId;
 
-    chrome.tabs.query({
-        active: true,
-        currentWindow: true
-    }, function (tabs) {
-        focused_tab_id = tabs[0].id;
-    });
+//    chrome.tabs.query({
+//        active: true,
+//        currentWindow: true
+//    }, function (tabs) {
+//        focused_tab_id = tabs[0].id;
+//    });
 }
 
 
