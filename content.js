@@ -17,9 +17,9 @@ function observe_function() {
         // Send message to the background when the video starts to play
         video.onplay = function () {
 
-            //if (video.currentTime !== 0) {
+            if (video.currentTime >= 0.2) {
 
-            //console.log("onplay");
+            console.log("onplay");
 
             chrome.runtime.sendMessage({
                 status: "played"
@@ -27,13 +27,13 @@ function observe_function() {
 
             play_message_sent = true;
 
-            //}
+            }
         };
 
 
         video.onended = function () {
 
-            //console.log("onended");
+            console.log("onended");
 
             chrome.runtime.sendMessage({
                 status: "ended"
@@ -45,11 +45,11 @@ function observe_function() {
         video.ontimeupdate = function () {
 
             // this condition is put to stop youtube from firing when tab is opened in new tab without focusing, DOESN'T WORK ON VIMEO !!!
-            // && video.currentTime !== 0
+            // && video.currentTime >= 0.3
 
-            if (!play_message_sent && video.currentTime !== 0) {
+            if (!play_message_sent && video.currentTime >= 0.2) {
 
-                //console.log("ontimeupdate "+video.currentTime+" "+val+" "+video.muted);
+                console.log("ontimeupdate "+video.currentTime);
 
                 chrome.runtime.sendMessage({
                     status: "played"
@@ -64,16 +64,16 @@ function observe_function() {
 
             play_message_sent = false;
 
-            //console.log("onabort");
+            console.log("onabort");
         }
 
         clearInterval(observer);
-        //console.log("hodor: i've got it");
+        console.log("hodor: i've got it");
 
     } else {
 
         video = document.querySelector("video");
-        //console.log("i am groot: still looking for it");
+        console.log("i am groot: still looking for it");
     }
 }
 
