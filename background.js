@@ -14,6 +14,9 @@ var focused_tab_id = undefined;
 var playing_tab_window_id = undefined;
 var map = new Map();
 
+chrome.browserAction.setBadgeBackgroundColor({ color: [47, 47, 47, 255] });
+chrome.browserAction.setBadgeText({text: ""+map.size});
+
 
 function message_function(message, sender, sendResponse) {
 
@@ -68,6 +71,7 @@ function message_function(message, sender, sendResponse) {
         if (!map.has(sender.tab.id)) {
 
             map.set(sender.tab.id, sender.tab);
+            chrome.browserAction.setBadgeText({text: ""+map.size});
         }
 
     } else if (message.status === "ended") {
@@ -77,6 +81,7 @@ function message_function(message, sender, sendResponse) {
         if (map.has(sender.tab.id)) {
 
             map.delete(sender.tab.id);
+            chrome.browserAction.setBadgeText({text: ""+map.size});
         }
     }
 }
@@ -122,6 +127,7 @@ function remove_function(tabId, removeInfo) {
     if (map.has(tabId)) {
 
         map.delete(tabId);
+        chrome.browserAction.setBadgeText({text: ""+map.size});
     }
 }
 
@@ -131,6 +137,7 @@ function update_function(tabId, changeInfo, tab) {
     if (map.has(tabId) && changeInfo.url !== undefined) {
 
         map.delete(tabId);
+        chrome.browserAction.setBadgeText({text: ""+map.size});
 
         //console.log("ok");
     }

@@ -17,6 +17,7 @@ function observe_function() {
         // Send message to the background when the video starts to play
         video.onplay = function () {
 
+            // This condition will be false for the first time play from begining; this is absolutely necessary! (^_^) 
             if (video.currentTime >= 0.2) {
 
                 //console.log("onplay");
@@ -38,7 +39,7 @@ function observe_function() {
             chrome.runtime.sendMessage({
                 status: "ended"
             });
-            
+
             play_message_sent = false;
         };
 
