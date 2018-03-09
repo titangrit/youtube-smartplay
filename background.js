@@ -10,7 +10,7 @@ chrome.tabs.onUpdated.addListener(update_function);
 
 /* Initialize variables */
 var playing_tab_id = undefined;
-var focused_tab_id = undefined;
+//var focused_tab_id = undefined;
 var playing_tab_window_id = undefined;
 var map = new Map();
 
@@ -37,15 +37,15 @@ function message_function(message, sender, sendResponse) {
 
             playing_tab_id = sender.tab.id;
             playing_tab_window_id = sender.tab.windowId;
-            focused_tab_id = sender.tab.id;
+//            focused_tab_id = sender.tab.id;
 
             //console.log("played 1 " + playing_tab_window_id);
 
-        } else if (focused_tab_id !== sender.tab.id) {
-
-            chrome.tabs.sendMessage(sender.tab.id, {
-                action: "pause"
-            });
+//        } else if (focused_tab_id !== sender.tab.id) {
+//
+//            chrome.tabs.sendMessage(sender.tab.id, {
+//                action: "pause"
+//            });
 
             //console.log("played 2 " + playing_tab_window_id);
 
@@ -62,7 +62,7 @@ function message_function(message, sender, sendResponse) {
 
             playing_tab_id = sender.tab.id;
             playing_tab_window_id = sender.tab.windowId;
-            focused_tab_id = sender.tab.id;
+//            focused_tab_id = sender.tab.id;
 
             //console.log("played 3 " + playing_tab_window_id);
         }
@@ -111,7 +111,7 @@ function activate_function(info) {
 
     }
     
-    focused_tab_id = info.tabId;
+//    focused_tab_id = info.tabId;
 
 //    chrome.tabs.query({
 //        active: true,
@@ -155,9 +155,9 @@ function update_function(tabId, changeInfo, tab) {
 //    });
 //}
 
-chrome.tabs.query({
-    active: true,
-    currentWindow: true
-}, function (tabs) {
-    focused_tab_id = tabs[0].id;
-});
+//chrome.tabs.query({
+//    active: true,
+//    currentWindow: true
+//}, function (tabs) {
+//    focused_tab_id = tabs[0].id;
+//});
