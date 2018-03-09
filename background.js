@@ -14,8 +14,12 @@ var playing_tab_id = undefined;
 var playing_tab_window_id = undefined;
 var map = new Map();
 
-chrome.browserAction.setBadgeBackgroundColor({ color: [47, 47, 47, 255] });
-chrome.browserAction.setBadgeText({text: ""+map.size});
+chrome.browserAction.setBadgeBackgroundColor({
+    color: [47, 47, 47, 255]
+});
+chrome.browserAction.setBadgeText({
+    text: "" + map.size
+});
 
 
 function message_function(message, sender, sendResponse) {
@@ -37,15 +41,15 @@ function message_function(message, sender, sendResponse) {
 
             playing_tab_id = sender.tab.id;
             playing_tab_window_id = sender.tab.windowId;
-//            focused_tab_id = sender.tab.id;
+            //            focused_tab_id = sender.tab.id;
 
             //console.log("played 1 " + playing_tab_window_id);
 
-//        } else if (focused_tab_id !== sender.tab.id) {
-//
-//            chrome.tabs.sendMessage(sender.tab.id, {
-//                action: "pause"
-//            });
+            //        } else if (focused_tab_id !== sender.tab.id) {
+            //
+            //            chrome.tabs.sendMessage(sender.tab.id, {
+            //                action: "pause"
+            //            });
 
             //console.log("played 2 " + playing_tab_window_id);
 
@@ -62,7 +66,7 @@ function message_function(message, sender, sendResponse) {
 
             playing_tab_id = sender.tab.id;
             playing_tab_window_id = sender.tab.windowId;
-//            focused_tab_id = sender.tab.id;
+            //            focused_tab_id = sender.tab.id;
 
             //console.log("played 3 " + playing_tab_window_id);
         }
@@ -71,7 +75,9 @@ function message_function(message, sender, sendResponse) {
         if (!map.has(sender.tab.id)) {
 
             map.set(sender.tab.id, sender.tab);
-            chrome.browserAction.setBadgeText({text: ""+map.size});
+            chrome.browserAction.setBadgeText({
+                text: "" + map.size
+            });
         }
 
     } else if (message.status === "ended") {
@@ -81,7 +87,9 @@ function message_function(message, sender, sendResponse) {
         if (map.has(sender.tab.id)) {
 
             map.delete(sender.tab.id);
-            chrome.browserAction.setBadgeText({text: ""+map.size});
+            chrome.browserAction.setBadgeText({
+                text: "" + map.size
+            });
         }
     }
 }
@@ -102,7 +110,7 @@ function activate_function(info) {
 
         playing_tab_id = info.tabId;
         playing_tab_window_id = info.windowId;
-        
+
         chrome.tabs.sendMessage(playing_tab_id, {
             action: "play"
         });
@@ -110,15 +118,15 @@ function activate_function(info) {
         //console.log("4 playing_tab_id: "+playing_tab_id+" info.tabId :"+info.tabId);
 
     }
-    
-//    focused_tab_id = info.tabId;
 
-//    chrome.tabs.query({
-//        active: true,
-//        currentWindow: true
-//    }, function (tabs) {
-//        focused_tab_id = tabs[0].id;
-//    });
+    //    focused_tab_id = info.tabId;
+
+    //    chrome.tabs.query({
+    //        active: true,
+    //        currentWindow: true
+    //    }, function (tabs) {
+    //        focused_tab_id = tabs[0].id;
+    //    });
 }
 
 
@@ -127,7 +135,9 @@ function remove_function(tabId, removeInfo) {
     if (map.has(tabId)) {
 
         map.delete(tabId);
-        chrome.browserAction.setBadgeText({text: ""+map.size});
+        chrome.browserAction.setBadgeText({
+            text: "" + map.size
+        });
     }
 }
 
@@ -137,7 +147,14 @@ function update_function(tabId, changeInfo, tab) {
     if (map.has(tabId) && changeInfo.url !== undefined) {
 
         map.delete(tabId);
-        chrome.browserAction.setBadgeText({text: ""+map.size});
+        chrome.browserAction.setBadgeText({
+            text: "" + map.size
+        });
+
+
+        chrome.tabs.sendMessage(tabId, {
+            action: "update_var"
+        });
 
         //console.log("ok");
     }

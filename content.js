@@ -98,5 +98,8 @@ function action_function(message, sender, sendResponse) {
         video.currentTime = video.currentTime - 1;
         video.play();
 
+    } else if (message.action === "update_var") {
+        
+        play_message_sent = false;
     }
 }
