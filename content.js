@@ -48,7 +48,6 @@ function observe_function() {
         video.ontimeupdate = function () {
 
             // this condition is put to stop youtube from firing when tab is opened in new tab without focusing, DOESN'T WORK ON VIMEO !!!
-            // && video.currentTime >= 0.3
 
             if (!play_message_sent && video.currentTime >= 0.2) {
 
