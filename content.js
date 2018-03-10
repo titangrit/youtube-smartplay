@@ -18,9 +18,9 @@ function observe_function() {
         video.onplay = function () {
 
             // This condition will be false for the first time play from begining; this is absolutely necessary! (^_^) 
-            if (video.currentTime >= 0.2) {
+            if (video.currentTime >= 0.3) {
 
-                //console.log("onplay");
+                console.log("onplay "+video.currentTime);
 
                 chrome.runtime.sendMessage({
                     status: "played"
@@ -49,9 +49,9 @@ function observe_function() {
 
             // this condition is put to stop youtube from firing when tab is opened in new tab without focusing, DOESN'T WORK ON VIMEO !!!
 
-            if (!play_message_sent && video.currentTime >= 0.2) {
+            if (!play_message_sent && video.currentTime >= 0.3) {
 
-                //console.log("ontimeupdate "+video.currentTime);
+                console.log("ontimeupdate "+video.currentTime);
 
                 chrome.runtime.sendMessage({
                     status: "played"
@@ -99,6 +99,8 @@ function action_function(message, sender, sendResponse) {
 
     } else if (message.action === "update_var") {
         
+        video.currentTime = 0;
+        video.pause();
         play_message_sent = false;
     }
 }
